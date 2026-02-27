@@ -4,13 +4,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
 import { Button } from "../components/Button";
 import { Badge } from "../components/Badge";
 import { Check, Trash2, Plus } from "lucide-react";
-import { StoreContext } from "../store/StoreContext/StoreContext";
+import { useStoreTodo } from "../store/StoreContext/StoreTodo";
 
 export function TaskListPage() {
-  const { state, dispatch } = useContext(StoreContext);
+  const todo = useStoreTodo(state => [state.availableTodo, state.toggleTodo, state.deleteTodo]);
   const navigate = useNavigate();
-  const activeTasks = state.todos.filter((task) => !task.completed).length;
-  const completedTasks = state.todos.filter((task) => task.completed).length;
+  const activeTasks = todo.state.todos.filter((task) => !task.completed).length;
+  const completedTasks = todo.state.todos.filter((task) => task.completed).length;
 
   return (
     <div className="w-full max-w-4xl mx-auto">

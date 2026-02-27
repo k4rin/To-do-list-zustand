@@ -2,7 +2,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { useContext } from "react";
-import { StoreContext } from "../store/StoreContext/StoreContext";
+import { StoreContext } from "../store/StoreContext/StoreTodo";
 import { cn } from "./utils";
 
 export const TodoList: React.FC = () => {

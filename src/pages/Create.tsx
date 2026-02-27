@@ -6,7 +6,7 @@ import { Textarea } from "../components/Textarea";
 import { Button } from "../components/Button";
 import { Label } from "../components/Label";
 import { Save, X } from "lucide-react";
-import { StoreContext } from "../store/StoreContext/StoreContext";
+import { StoreContext } from "../store/StoreContext/StoreTodo";
 
 export function CreateTaskPage() {
   const [title, setTitle] = useState("");

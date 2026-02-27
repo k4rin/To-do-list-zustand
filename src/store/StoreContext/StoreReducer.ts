@@ -1,4 +1,4 @@
-import type { DispatchT,  TodosState } from "./StoreContext";
+import type { DispatchT,  TodosState } from "./StoreTodo";
 
 
 

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
 import { Input } from "../components/Input";
@@ -6,13 +6,13 @@ import { Textarea } from "../components/Textarea";
 import { Button } from "../components/Button";
 import { Label } from "../components/Label";
 import { Save, X } from "lucide-react";
-import { StoreContext } from "../store/StoreContext/StoreTodo";
+import { useStoreTodo } from "../store/StoreZustand/StoreTodo";
 
 export function CreateTaskPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
-  const { dispatch } = useContext(StoreContext);
+  const addTodo = useStoreTodo((state) => state.addTodo);
 
   return (
     <div className="w-full max-w-2xl mx-auto">
@@ -48,7 +48,7 @@ export function CreateTaskPage() {
               Cancelar
             </Button>
             <Button variant="outline" onClick={() => {
-              dispatch({ type: "ADD_TODO", payload: { title, description } });
+              addTodo(title, description);
               navigate("/list");
             }}>
               <Save className="size-4 mr-2" />

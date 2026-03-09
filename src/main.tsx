@@ -4,12 +4,11 @@ import App from "./App";
 import { CreateTaskPage } from "./pages/Create";
 import { TaskListPage } from "./pages/List";
 import { Navigate } from "react-router";
-import { StoreContextProvider } from "./store/StoreContext/StoreContextProvider";
+
 
 const root = document.getElementById("root")!;
 
 ReactDOM.createRoot(root).render(
-  <StoreContextProvider>
     <BrowserRouter>
       <Routes>
       <Route path="/" element={<App />} >
@@ -27,6 +26,5 @@ ReactDOM.createRoot(root).render(
       </Route>
     
       </Routes>
-    </BrowserRouter>
-  </StoreContextProvider>,
+    </BrowserRouter>,
 );

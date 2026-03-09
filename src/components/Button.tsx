@@ -1,58 +1,41 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { useContext } from "react";
-import { StoreContext } from "../store/StoreContext/StoreTodo";
+import { useStoreTodo } from "../store/StoreZustand/StoreTodo";
 import { cn } from "./utils";
 
 export const TodoList: React.FC = () => {
-  const { state, dispatch } = useContext(StoreContext);
+  const state = useStoreTodo();
   const { todos } = state;
 
   const handleAddTodo = () => {
-    dispatch({
-      type: "ADD_TODO",
-      payload: {
-        title: "Nova Tarefa",
-        description: "",
-      },
-    });
+    state.addTodo("Nova Tarefa", "");
   };
 
   const handleToggleTodo = (id: number) => {
-    dispatch({
-      type: "TOGGLE_TODO",
-      payload: { id },
-    });
+    state.toggleTodo(id);
   };
 
   const handleRemoveTodo = (id: number) => {
-    dispatch({
-      type: "DELETE_TODO",
-      payload: { id },
-    });
+    state.deleteTodo(id);
   };
 
   return (
     <div>
-      {/* Seu botão atual aqui com a nova função */}
       <button onClick={handleAddTodo}>➕ Adicionar Tarefa</button>
 
-      {/* ...rest do seu código... */}
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
             {todo.title}
             <button onClick={() => handleRemoveTodo(todo.id)}>❌ Remover</button>
             <button onClick={() => handleToggleTodo(todo.id)}>✅ Concluir</button>
-            <button onClick={() => handleToggleTodo(todo.id)}>{todo.completed ? "🔄 Reabrir" : "✅ Concluir"}</button>
           </li>
         ))}
       </ul>
     </div>
   );
 };
-
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",

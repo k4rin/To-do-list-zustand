@@ -1,17 +1,18 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/Card";
 import { Button } from "../components/Button";
 import { Badge } from "../components/Badge";
 import { Check, Trash2, Plus } from "lucide-react";
-import { useStoreTodo } from "../store/StoreContext/StoreTodo";
+import { useStoreTodo } from "../store/StoreZustand/StoreTodo";
 
 export function TaskListPage() {
-  const todo = useStoreTodo(state => [state.availableTodo, state.toggleTodo, state.deleteTodo]);
+  const toggleTodo = useStoreTodo((state) => state.toggleTodo);
+  const deleteTodo = useStoreTodo((state) => state.deleteTodo);
   const navigate = useNavigate();
-  const activeTasks = todo.state.todos.filter((task) => !task.completed).length;
-  const completedTasks = todo.state.todos.filter((task) => task.completed).length;
-
+  const state = useStoreTodo();
+  const activeTasks = state.todos.filter(todo => !todo.completed).length;
+  const completedTasks = state.todos.filter(todo => todo.completed).length;
+  
   return (
     <div className="w-full max-w-4xl mx-auto">
       <Card>
@@ -62,7 +63,7 @@ export function TaskListPage() {
                           size="sm"
                           variant="outline"
                           onClick={() =>
-                            dispatch({ type: "TOGGLE_TODO", payload: { id: task.id } })
+                            toggleTodo(task.id)
                           }
                         >
                           <Check className="size-4 mr-2" />
@@ -73,7 +74,7 @@ export function TaskListPage() {
                         size="sm"
                         variant="outline"
                         onClick={() =>
-                          dispatch({ type: "DELETE_TODO", payload: { id: task.id } })
+                          deleteTodo(task.id)
                         }
                       >
                         <Trash2 className="size-4" />

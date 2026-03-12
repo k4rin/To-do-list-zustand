@@ -10,7 +10,6 @@ type Todo = {
 };
 type StoreState = {
     todos: Todo[];
-    availableTodo: Todo[];
     addTodo: (title: string, description: string) => void;
     deleteTodo: (id: number) => void;
     toggleTodo: (id: number) => void;
@@ -24,8 +23,7 @@ const  initialAvailableTodo: Todo[] = [
 
 export const useStoreTodo = create<StoreState>() ( 
     persist((set) => ({
-    todos: [],
-    availableTodo: initialAvailableTodo,
+    todos: initialAvailableTodo,
     addTodo: (title, description) =>
         set((state) => ({
     todos: [
